@@ -36,6 +36,8 @@ namespace WebApplication1
             services.AddControllers();
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConnectionString));
             services.AddTransient<LibrosService>();
+            services.AddTransient<AuthorService>();
+            services.AddTransient<PublisherService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApplication1", Version = "v1" });
@@ -62,7 +64,7 @@ namespace WebApplication1
             {
                 endpoints.MapControllers();
             });
-            AppDbInitialer.Seed(app);
+            //AppDbInitialer.Seed(app);
         }
     }
 }

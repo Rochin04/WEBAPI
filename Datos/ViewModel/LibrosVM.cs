@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace WebApplication1.Datos.ViewModel
 {
@@ -13,5 +14,7 @@ namespace WebApplication1.Datos.ViewModel
         public string Autor { get; set; }
         public string CoverUrl { get; set; }
         public DateTime DateAdded { get; set; }
+        public int PublisherId { get; set; }
+        public List<int> AuthorId { get; set; }
     }
 }

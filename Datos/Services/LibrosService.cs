@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Security.Policy;
 
 namespace WebApplication1.Datos.Services
 {
@@ -14,7 +15,7 @@ namespace WebApplication1.Datos.Services
         {
             _context = context;
         }
-        public void AddLibros(LibrosVM libros)
+        public void AddLibrosWithAuthors(LibrosVM libros)
         {
             var _libro = new LibrosModel()
             {
@@ -24,12 +25,23 @@ namespace WebApplication1.Datos.Services
                 DateRead = libros.DateRead,
                 Rate = libros.Rate,
                 Genero = libros.Genero,
-                Autor = libros.Autor,
+                //Autor = libros.Autor,
                 CoverUrl = libros.CoverUrl,
-                DateAdded = DateTime.Now
+                DateAdded = DateTime.Now,
+                PublisherId = libros.PublisherId
             };
             _context.Libros.Add(_libro);
             _context.SaveChanges();
+            foreach(var id in libros.AuthorId)
+            {
+                var _libros_author = new Author_Libros()
+                {
+                    IdLibro = _libro.Id,
+                    AuthorId = id
+                };
+                _context.Author_Libro.Add(_libros_author);
+                _context.SaveChanges();
+            }
         }
         public List<LibrosModel> GetAllLbrs() => _context.Libros.ToList();
         public LibrosModel GetlibsId(int Id) => _context.Libros.FirstOrDefault(n => n.Id == Id);
@@ -44,7 +56,7 @@ namespace WebApplication1.Datos.Services
                 _libros.DateRead = libros.DateRead;
                 _libros.Rate = libros.Rate;
                 _libros.Genero = libros.Genero;
-                _libros.Autor = libros.Autor;
+                //_libros.Autor = libros.Autor;
                 _libros.CoverUrl = libros.CoverUrl;
                 _libros.DateAdded = DateTime.Now;
                 _context.SaveChanges() ;

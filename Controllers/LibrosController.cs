@@ -26,10 +26,10 @@ namespace WebApplication1.Controllers
             var libros = _librosService.GetlibsId(Id);
             return Ok(libros);
         }
-        [HttpPost("add-libros")]
+        [HttpPost("add-libros-with-autrhors")]
         public IActionResult AddLibros([FromBody]LibrosVM libros)
         {
-            _librosService.AddLibros(libros);
+            _librosService.AddLibrosWithAuthors(libros);
             return Ok();
         }
         [HttpPut("update-by-id/{Id}")]

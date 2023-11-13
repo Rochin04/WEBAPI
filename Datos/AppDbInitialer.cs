@@ -23,7 +23,6 @@ namespace WebApplication1.Datos
                         DateRead = DateTime.Now.AddDays(-10),
                         Rate = 4,
                         Genero = "Biography",
-                        Autor = "1st Author",
                         CoverUrl = "http...",
                         DateAdded = DateTime.Now,
                     },
@@ -33,7 +32,6 @@ namespace WebApplication1.Datos
                         Descripcion = "2st book description",
                         IsRead = true,
                         Genero = "Biography",
-                        Autor = "2st Author",
                         CoverUrl = "http...",
                         DateAdded = DateTime.Now,
                     }

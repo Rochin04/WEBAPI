@@ -6,9 +6,9 @@ namespace WebApplication1.Datos.Modelos
     {
         public int Id { get; set; }
         public int IdLibro {  get; set; }
-        public LibrosModel libros { get; set; }
+        public LibrosModel libros { get; set; }//aqui esta llamando al modelo original
         public int AuthorId { get; set; }
-        public Author Author {  get; set; }
+        public Author Author {  get; set; }//aqui esta llamando al modelo original
         public List<Author_Libros> Author_Libross { get; set; }
 
     }

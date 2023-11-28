@@ -15,11 +15,17 @@ namespace WebApplication1.Controllers
         {
             _authorservice = authorservice;
         }
-        [HttpPost("Add-Libros")]
+        [HttpPost("Add-Author")]
         public IActionResult AddAuthor([FromBody] AuthorVM libros)
         {
             _authorservice.AddAuthor(libros);
             return Ok();
+        }
+        [HttpGet("get-author-with-books-by-id")]
+        public IActionResult GetAuthorWithBooks(int id)
+        {
+            var response = _authorservice.GetAuthorWithBooks(id);
+            return Ok(response);
         }
     }
 }

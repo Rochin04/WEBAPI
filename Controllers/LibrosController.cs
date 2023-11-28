@@ -23,7 +23,7 @@ namespace WebApplication1.Controllers
         [HttpGet("get-by-id/{Id}")]
         public IActionResult GetForID(int Id)
         {
-            var libros = _librosService.GetlibsId(Id);
+            var libros = _librosService.GetBookById(Id);
             return Ok(libros);
         }
         [HttpPost("add-libros-with-autrhors")]
@@ -35,7 +35,7 @@ namespace WebApplication1.Controllers
         [HttpPut("update-by-id/{Id}")]
         public IActionResult UpdateLibrosId(int Id, [FromBody]LibrosVM libros)
         {
-            var updateLibros = _librosService.UpdateLibrosId(Id, libros);
+            var updateLibros = _librosService.UpdateBookByID(Id, libros);
             return Ok(updateLibros);
         }
         [HttpDelete("delete-by-Id/{Id}")]

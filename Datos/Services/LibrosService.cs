@@ -44,10 +44,12 @@ namespace WebApplication1.Datos.Services
             }
         }
         public List<LibrosModel> GetAllLbrs() => _context.Libros.ToList();
-        public LibrosModel GetlibsId(int Id) => _context.Libros.FirstOrDefault(n => n.Id == Id);
-        public LibrosModel UpdateLibrosId(int Id, LibrosVM libros)
+        //public LibrosModel GetlibsId(int Id) => _context.Libros.FirstOrDefault(n => n.Id == Id);
+        //public void
+        //public LibrosModel UpdateLibrosId(int Id, LibrosVM libros)
+        public BookWithAuthorsVM GetBookById(int bookid)
         {
-            var _libros = _context.Libros.FirstOrDefault(n => n.Id == Id);
+            /*var _libros = _context.Libros.FirstOrDefault(n => n.Id == Id);
             if(_libros != null)
             {
                 _libros.Titulo = libros.Titulo;
@@ -61,7 +63,20 @@ namespace WebApplication1.Datos.Services
                 _libros.DateAdded = DateTime.Now;
                 _context.SaveChanges() ;
             }
-            return _libros;
+            return _libros;*/
+            var _booksWithAuthors = _context.Libros.Where(n => n.Id == bookid).Select(book => new BookWithAuthorsVM()
+            {
+                Titulo = book.Titulo,
+                Descripcion = book.Descripcion,
+                IsRead = book.IsRead,
+                DateRead = book.DateRead,
+                Rate = book.Rate,
+                Genero = book.Genero,
+                CoverUrl = book.CoverUrl,
+                PublisherName = book.Publisher.Name,
+                AutorNames = book.Author_Libros.Select(n => n.Author.fullName).ToList()
+            }).FirstOrDefault();
+            return _booksWithAuthors;
         }
         public void DeleteLibros(int Id)
         {
@@ -69,6 +84,32 @@ namespace WebApplication1.Datos.Services
             if(_Libro != null)
             {
                 _context.Libros.Remove(_Libro);
+                _context.SaveChanges();
+            }
+        }
+        public LibrosModel UpdateBookByID(int bookid, LibrosVM book)
+        {
+            var _book = _context.Libros.FirstOrDefault(n => n.Id == bookid);
+            if (_book != null)
+            {
+                _book.Titulo = book.Titulo;
+                _book.Descripcion = book.Descripcion;
+                _book.IsRead = book.IsRead;
+                _book.DateRead = book.DateRead;
+                _book.Rate = book.Rate;
+                _book.Genero = book.Genero;
+                _book.CoverUrl = book.CoverUrl;
+
+                _context.SaveChanges();
+            }
+            return _book;
+        }
+        public void DeleteBookByID(int bookid)
+        {
+            var _book = _context.Libros.FirstOrDefault(n => n.Id == bookid);
+            if (_book != null)
+            {
+                _context.Libros.Remove(_book);
                 _context.SaveChanges();
             }
         }
